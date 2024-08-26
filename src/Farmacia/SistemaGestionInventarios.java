@@ -3,12 +3,15 @@ package Farmacia;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Scanner;
 
 public class SistemaGestionInventarios {
     private String medicamentoActual;
     private String clienteActual;
     private String proveedorActual;
     private List<String> registroVentas;
+
+
 
     // Constructor sin parámetros
     public SistemaGestionInventarios() {
@@ -18,16 +21,50 @@ public class SistemaGestionInventarios {
         this.registroVentas = new ArrayList<>();
     }
 
-    // Métodos de la clase
-    public void registrarMedicamento(Medicamento medicamento) {
+    // Metodo para capturar un medicamento por pantalla
+    public Medicamento registrarMedicamento() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el código del medicamento:");
+        String codigo = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del medicamento:");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese el tipo de medicamento:");
+        String tipo = scanner.nextLine();
+
+        System.out.println("Ingrese la cantidad en stock:");
+        int stock = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Ingrese la fecha de caducidad (en formato YYYY-MM-DD):");
+        String fechaCaducidadStr = scanner.nextLine();
+        Date caducidad = java.sql.Date.valueOf(fechaCaducidadStr);
+
+        Medicamento medicamento = new Medicamento(codigo, nombre, tipo, stock, caducidad);
         this.medicamentoActual = medicamento.getNombre();
         System.out.println("Medicamento registrado: " + medicamentoActual);
+
+        return medicamento;
     }
 
-    public void registrarCliente(Cliente cliente) {
+    // Metodo para registrar un cliente solicitando los datos por pantalla
+    public Cliente registrarCliente() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el número de cliente:");
+        String numeroCliente = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del cliente:");
+        String nombre = scanner.nextLine();
+
+        Cliente cliente = new Cliente(numeroCliente, nombre);
         this.clienteActual = cliente.getNombre();
         System.out.println("Cliente registrado: " + clienteActual);
+
+        return cliente;
     }
+
 
     public void registrarProveedor(ProveedorFarmaceutico proveedor) {
         this.proveedorActual = proveedor.getNombre();
